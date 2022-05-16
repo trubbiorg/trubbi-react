@@ -3,9 +3,9 @@ import { Container, AppBar, Box, Toolbar, MenuItem, Menu, Stack } from '@mui/mat
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Trubbicard from '../components/trubbicard'
+import OpinionCard from '../components/opinioncard'
 
-export default function Home(props) {
+export default function Opinions(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -16,7 +16,7 @@ export default function Home(props) {
     setAnchorEl(null);
   };
 
-  const quantity = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const quantity = [0, 1, 2];
 
   return (
     <Box>
@@ -65,7 +65,7 @@ export default function Home(props) {
         <Stack spacing={2}>
           {quantity.map((number) => (
             <Container>
-              <Trubbicard number={number} />
+              <OpinionCard number={number} />
             </Container>
           ))}
         </Stack>
