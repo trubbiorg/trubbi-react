@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Container, AppBar, Box, Toolbar, MenuItem, Menu, Stack } from '@mui/material';
+import { AppBar, Box, Toolbar, MenuItem, Menu } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -18,7 +18,7 @@ const AppMenu = (props) => {
 
   return (
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: '#5a49e3' }} >
+        <AppBar position="static" sx={{ backgroundColor: '#3b58ed' }} >
           <Toolbar>
             <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
               Trubbi
