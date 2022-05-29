@@ -22,6 +22,7 @@ const App = () => {
       <Routes>
         {(loggedIn) ? <Route path="/" element={<Home loggedIn={loggedIn} onLoggedOut={logOut} />} /> : <Route path="/" element={<Login onLoggedIn={logIn} />} />}
         <Route path="/opinions" element={<Opinions loggedIn={loggedIn} onLoggedOut={logOut}/>}/>
+        <Route path='/providers' element={<Providers loggedIn={loggedIn} onLoggedOut={logOut}/>}/>
       </Routes>
     </BrowserRouter>
   );
