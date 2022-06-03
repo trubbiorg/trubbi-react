@@ -3,8 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/login.jsx';
 import Home from './pages/home.jsx';
 import Opinions from './pages/opinions.jsx'
-import TopBar from './components/topbar';
+import { TopBar, AdminTopBar } from './components/topbars';
 import { Container } from '@mui/material';
+import LoginAdmin from './pages/loginadmin.jsx';
+import EventForm from './pages/eventForm'
+import AdminHome from './pages/providers.jsx';
+// import './App.css';
 
 const App = () => {
   
@@ -17,14 +21,27 @@ const App = () => {
   const logOut = () => {
     setLoggedIn(false);
   }
+  
+  const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+  
+  const adminLogIn = () => {
+    setAdminLoggedIn(true);
+  }
+  
+  const adminLogOut = () => {
+    setAdminLoggedIn(false);
+  }
 
   return (
     <BrowserRouter>
       {(loggedIn) ? <TopBar onLoggedOut={logOut} /> : ""}
+      {(adminLoggedIn) ? <AdminTopBar onLoggedOut={adminLogOut} /> : ""}
       <Container sx={{ marginTop: 10 }}>
         <Routes>
-          {(loggedIn) ? <Route path="/" element={<Home />} /> : <Route path="/" element={<Login onLoggedIn={logIn} />} />}
-          <Route path="/opinions" element={<Opinions />}/>
+          <Route path='/admin' element={(adminLoggedIn) ? <AdminHome/> : <LoginAdmin onLoggedIn={adminLogIn} />}/>
+          <Route path="/" element={(loggedIn) ? <Home /> : <Login onLoggedIn={logIn} />} />
+          <Route path="opinions" element={(loggedIn) ? <Opinions /> : <Login onLoggedIn={logIn} />} />
+          <Route path="eventForm" element={(loggedIn) ? <EventForm /> : <Login onLoggedIn={logIn} />} />
         </Routes>
       </Container>
     </BrowserRouter>

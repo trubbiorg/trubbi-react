@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Stack } from '@mui/material';
-import Trubbicard from '../components/trubbicard'
+import TrubbiCard from '../components/trubbicard'
 
 export default function Home(props) {
 
@@ -9,7 +9,7 @@ export default function Home(props) {
   return (
     <Stack spacing={2}>
       {quantity.map((number) => (
-        <Trubbicard number={number} />
+        <TrubbiCard number={number} />
       ))}
     </Stack>
   );
