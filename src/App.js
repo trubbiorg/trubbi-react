@@ -3,30 +3,47 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/login.jsx';
 import Home from './pages/home.jsx';
 import Opinions from './pages/opinions.jsx'
-import Providers from './pages/providers.jsx';
+import { TopBar, AdminTopBar } from './components/topbars';
+import { Container } from '@mui/material';
 import LoginAdmin from './pages/loginadmin.jsx';
-import './App.css';
+import EventForm from './pages/eventForm'
+import AdminHome from './pages/providers.jsx';
+// import './App.css';
 
 const App = () => {
   
   const [loggedIn, setLoggedIn] = useState(false);
-
+  
   const logIn = () => {
     setLoggedIn(true);
   }
-
+  
   const logOut = () => {
     setLoggedIn(false);
+  }
+  
+  const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+  
+  const adminLogIn = () => {
+    setAdminLoggedIn(true);
+  }
+  
+  const adminLogOut = () => {
+    setAdminLoggedIn(false);
   }
 
   return (
     <BrowserRouter>
-      <Routes>
-        {(loggedIn) ? <Route path="/" element={<Home loggedIn={loggedIn} onLoggedOut={logOut} />} /> : <Route path="/" element={<Login onLoggedIn={logIn} />} />}
-        <Route path="/opinions" element={<Opinions loggedIn={loggedIn} onLoggedOut={logOut}/>}/>
-        <Route path='/providers' element={<Providers loggedIn={loggedIn} onLoggedOut={logOut}/>}/>
-        <Route path='/loginadmin' element={<LoginAdmin loggedIn={loggedIn} onLoggedOut={logOut}/>}/>
-      </Routes>
+      {(loggedIn) ? <TopBar onLoggedOut={logOut} /> : ""}
+      {(adminLoggedIn) ? <AdminTopBar onLoggedOut={adminLogOut} /> : ""}
+      <Container sx={{ marginTop: 10 }}>
+        <Routes>
+          <Route path='/admin' element={(adminLoggedIn) ? <AdminHome/> : <LoginAdmin onLoggedIn={adminLogIn} />}/>
+          <Route path="/" element={(loggedIn) ? <Home /> : <Login onLoggedIn={logIn} />} />
+          <Route path="opinions" element={(loggedIn) ? <Opinions /> : <Login onLoggedIn={logIn} />} />
+          <Route path="eventForm" element={(loggedIn) ? <EventForm /> : <Login onLoggedIn={logIn} />} />
+        </Routes>
+      </Container>
     </BrowserRouter>
   );
 }
