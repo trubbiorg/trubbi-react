@@ -58,7 +58,7 @@ export function AdminTopBar(props) {
               Trubbi
           </Link>
         </Typography>
-        <Link to="eventForm" style={{ textDecoration: 'none' }}>
+        <Link to="providerForm" style={{ textDecoration: 'none' }}>
           <Button variant="contained" sx={{ marginRight: 2 }}>Agregar Proveedor</Button>
         </Link>
         <IconButton onClick={handleMenu} color="inherit">
