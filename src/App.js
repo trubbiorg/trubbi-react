@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/" element={(loggedIn) ? <Home /> : <Login onLoggedIn={logIn} />} />
           <Route path="opinions" element={(loggedIn) ? <Opinions /> : <Login onLoggedIn={logIn} />} />
           <Route path="eventForm" element={(loggedIn) ? <EventForm /> : <Login onLoggedIn={logIn} />} />
-          <Route path="providerForm" element={(adminLoggedIn) ? <ProviderForm /> : <LoginAdmin onLoggedIn={adminLoggedIn} />} />
+          <Route path="providerForm" element={(adminLoggedIn) ? <ProviderForm /> : <LoginAdmin onLoggedIn={adminLogIn} />} />
         </Routes>
       </Container>
     </BrowserRouter>
