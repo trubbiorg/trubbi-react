@@ -28,6 +28,8 @@ export default function GeoAutocomplete() {
         >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <Grid>
+            <p>Latitude: {coordinates.lat}</p>
+            <p>Longitude: {coordinates.lng}</p>
                     <Grid>
                         <TextField required id="cardName" label="Dirección" {...getInputProps({ fullWidth: true })} />
                     </Grid>
