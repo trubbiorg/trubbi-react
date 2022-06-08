@@ -10,6 +10,7 @@ import EventForm from "./pages/eventForm";
 import AdminHome from "./pages/providers.jsx";
 import ProviderForm from "./pages/providerForm.jsx";
 import ProviderProfile from "./pages/providerProfile.jsx";
+import GeoAutocomplete from "./components/geoautocomplete.jsx"
 // import './App.css';
 
 const App = () => {

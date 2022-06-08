@@ -4,6 +4,7 @@ import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import GeoAutocomplete from '../components/geoautocomplete';
 
 export default function EventForm() {
   const [value, setValue] = React.useState({ start: new Date('2014-08-18T21:11:54'), end: new Date('2014-08-18T21:11:54') });
@@ -37,7 +38,7 @@ export default function EventForm() {
           <TextField required id="cardName" label="Titulo" fullWidth />
         </Grid>
         <Grid item xs={12} md={3}>
-          <TextField required id="cardName" label="Direccion" fullWidth />
+          <GeoAutocomplete/>
         </Grid>
         <Grid item xs={12} md={3}>          
           <LocalizationProvider dateAdapter={AdapterDateFns}>

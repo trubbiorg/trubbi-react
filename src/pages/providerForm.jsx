@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import GeoAutocomplete from '../components/geoautocomplete.jsx'
 
 
 export default function ProviderForm() {
@@ -29,9 +30,6 @@ return (
         </Grid>        
         <Grid item xs={12} md={8} >
           <TextField required id="cardName" label="Password" fullWidth />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField id="cardName" label="Descripción" multiline rows={5} fullWidth />
         </Grid>
         <Grid item xs={12}>     
           <Button variant="outlined" sx={{ float: 'right' }}>Guardar</Button>
