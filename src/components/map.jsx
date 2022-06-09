@@ -1,7 +1,6 @@
 import React from "react";
 import { GoogleMap, useJsApiLoader, Marker, useLoadScript } from "@react-google-maps/api";
 import usePlacesautocomplete, { getGeocode, getLatLng } from "use-places-autocomplete"
-import Autocomplete from "react-google-autocomplete";
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox"
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import "@reach/combobox/styles.css"
@@ -27,33 +26,41 @@ function Map() {
         lng: -58.3821878
     };
 
-    const center2 = {
-        lat: -35.6038008,
-        lng: -60.3821878
-    };
+
 
     const [map, setMap] = React.useState(null)
 
     const [selected, setSelected] = React.useState(null)
 
+    const onLoad = React.useCallback(function callback(map) {
+        const bounds = new window.google.maps.LatLngBounds(center);
+        map.panTo(new window.google.maps.LatLng(center))
+        setMap(map)
+      }, [])
+
+      const onUnmount = React.useCallback(function callback(map) {
+        setMap(null)
+    }, [])
+
 
     return (
         <>
             <Grid>
-                <PlacesAutocomplete setSelected={setSelected}  />
+                <PlacesAutocomplete setSelected={setSelected} setMap={setMap} map={map} />
             </Grid>
             <GoogleMap
                 zoom={15}
-                center={center}
                 mapContainerStyle={containerStyle}
+                onLoad={onLoad}
+                onUnmount={onUnmount}
             >
-                {selected && <Marker position={selected} /> }
+                {selected && <Marker position={selected} />}
             </GoogleMap>
         </>
     )
 }
 
-const PlacesAutocomplete = ({ setSelected }) => {
+const PlacesAutocomplete = ({ setSelected, map, setMap }) => {
     const {
         ready,
         value,
@@ -63,8 +70,8 @@ const PlacesAutocomplete = ({ setSelected }) => {
     } = usePlacesautocomplete()
 
     const center2 = {
-        lat: -40.6038008,
-        lng: -60.3821878
+        lat: -50,
+        lng: -60
     };
 
     const handleSelect = async (address) => {
@@ -74,23 +81,19 @@ const PlacesAutocomplete = ({ setSelected }) => {
         const results = await getGeocode({address})
         const {lat, lng} = await getLatLng(results[0])
         setSelected({lat, lng})
+        map.setZoom(15)
+        map.panTo(new window.google.maps.LatLng({lat,lng}))
     }
 
     return (
-        <Autocomplete
-        style={{ width: "90%" }}
-      />
-    )
-
-    return (
-    <Combobox onSelect={handleSelect} style={{height:50}}>
-        <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready}
-            className="combobox-input" placeholder="Direccion" />
-            <ComboboxPopover>
-                <ComboboxList>
-                    {status === "OK" && data.map(({place_id, description}) => <ComboboxOption key={place_id} value={description}/>)}
-                </ComboboxList>
-            </ComboboxPopover>
-    </Combobox>
-    )
+        <Combobox onSelect={handleSelect} style={{height:50}}>
+            <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready}
+                className="combobox-input" placeholder="Direccion" />
+                <ComboboxPopover>
+                    <ComboboxList>
+                        {status === "OK" && data.map(({place_id, description}) => <ComboboxOption key={place_id} value={description}/>)}
+                    </ComboboxList>
+                </ComboboxPopover>
+        </Combobox>
+        )
 }

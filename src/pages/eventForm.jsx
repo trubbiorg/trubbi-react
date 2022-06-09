@@ -6,7 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Autocomplete } from "@react-google-maps/api";
 import GeoAutocomplete from '../components/geoautocomplete';
-import Map from '../components/maptest';
+import Map from '../components/map';
 import { render } from "react-dom";
 import { withScriptjs } from "react-google-maps";
 
@@ -57,10 +57,7 @@ export default function EventForm() {
           </LocalizationProvider>
         </Grid>
         <Grid item xs={12}>
-          <MapLoader
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBruLlaLvMdXzNEjEBD5wHzqULq7Supv58&libraries=places,geometry"
-            loadingElement={<div style={{ height: `100%` }} />}
-          />
+          <Map/>
         </Grid>
         <Grid item xs={12}>
           <TextField required id="cardName" label="Descripcion" multiline rows={5} fullWidth />
