@@ -1,6 +1,7 @@
 import React from "react";
 import { GoogleMap, useJsApiLoader, Marker, useLoadScript } from "@react-google-maps/api";
 import usePlacesautocomplete, { getGeocode, getLatLng } from "use-places-autocomplete"
+import Autocomplete from "react-google-autocomplete";
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox"
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import "@reach/combobox/styles.css"
@@ -35,28 +36,16 @@ function Map() {
 
     const [selected, setSelected] = React.useState(null)
 
-    const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds(center);
-        map.fitBounds(bounds);
-        setMap(map)
-      }, [])
-
-      const onLoadbound = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds(center2);
-        map.fitBounds(bounds);
-        setMap(map)
-      }, [])
 
     return (
         <>
             <Grid>
-                <PlacesAutocomplete setSelected={setSelected} />
+                <PlacesAutocomplete setSelected={setSelected}  />
             </Grid>
             <GoogleMap
                 zoom={15}
                 center={center}
                 mapContainerStyle={containerStyle}
-                onLoad={onLoad}
             >
                 {selected && <Marker position={selected} /> }
             </GoogleMap>
@@ -73,6 +62,11 @@ const PlacesAutocomplete = ({ setSelected }) => {
         clearSuggestions
     } = usePlacesautocomplete()
 
+    const center2 = {
+        lat: -40.6038008,
+        lng: -60.3821878
+    };
+
     const handleSelect = async (address) => {
         setValue(address, false)
         clearSuggestions()
@@ -81,6 +75,12 @@ const PlacesAutocomplete = ({ setSelected }) => {
         const {lat, lng} = await getLatLng(results[0])
         setSelected({lat, lng})
     }
+
+    return (
+        <Autocomplete
+        style={{ width: "90%" }}
+      />
+    )
 
     return (
     <Combobox onSelect={handleSelect} style={{height:50}}>
