@@ -6,7 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Autocomplete } from "@react-google-maps/api";
 import GeoAutocomplete from '../components/geoautocomplete';
-import Map from '../components/map';
+import Map from '../components/maptest';
 
 export default function EventForm() {
   const [value, setValue] = React.useState({ start: new Date('2014-08-18T21:11:54'), end: new Date('2014-08-18T21:11:54') });
@@ -36,21 +36,16 @@ export default function EventForm() {
             <input type="file" hidden />
           </Button>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <TextField required id="cardName" label="Titulo" fullWidth />
         </Grid>
-        <Grid item xs={12} md={3}>
-          <Autocomplete>
-          <GeoAutocomplete/>
-            </Autocomplete>
-        </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker label="Inicio" value={value.start} onChange={handleStart}
               renderInput={(params) => <TextField fullWidth {...params} />} />
           </LocalizationProvider>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker label="Fin" value={value.end} onChange={handleEnd}
               renderInput={(params) => <TextField required fullWidth {...params} />} />
