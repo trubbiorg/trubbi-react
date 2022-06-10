@@ -26,8 +26,6 @@ function Map() {
         lng: -58.3821878
     };
 
-
-
     const [map, setMap] = React.useState(null)
 
     const [selected, setSelected] = React.useState(null)
@@ -36,9 +34,9 @@ function Map() {
         const bounds = new window.google.maps.LatLngBounds(center);
         map.panTo(new window.google.maps.LatLng(center))
         setMap(map)
-      }, [])
+    }, [])
 
-      const onUnmount = React.useCallback(function callback(map) {
+    const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
     }, [])
 
@@ -69,31 +67,32 @@ const PlacesAutocomplete = ({ setSelected, map, setMap }) => {
         clearSuggestions
     } = usePlacesautocomplete()
 
-    const center2 = {
-        lat: -50,
-        lng: -60
-    };
-
     const handleSelect = async (address) => {
         setValue(address, false)
         clearSuggestions()
 
-        const results = await getGeocode({address})
-        const {lat, lng} = await getLatLng(results[0])
-        setSelected({lat, lng})
-        map.setZoom(15)
-        map.panTo(new window.google.maps.LatLng({lat,lng}))
+        const results = await getGeocode({ address })
+        const { lat, lng } = await getLatLng(results[0])
+        setSelected({ lat, lng })
+        map.setZoom(18)
+        map.panTo(new window.google.maps.LatLng({ lat, lng }))
     }
 
     return (
-        <Combobox onSelect={handleSelect} style={{height:50}}>
-            <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready}
-                className="combobox-input" placeholder="Direccion" />
+        <Grid>
+            <Combobox onSelect={handleSelect} fullwidth style={{ height: 75, float: 'left', width: '100%' }}>
+                <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready}
+                    className="combobox-input" placeholder="Direccion*" as={TextField} label="Direccion" fullWidth />
                 <ComboboxPopover>
-                    <ComboboxList>
-                        {status === "OK" && data.map(({place_id, description}) => <ComboboxOption key={place_id} value={description}/>)}
+                    <ComboboxList style={{
+                        color: "#454545",
+                        fontStyle: "italic"
+                    }}>
+                        {status === "OK" && data.map(({ place_id, description }) => <ComboboxOption key={place_id} value={description} />)}
                     </ComboboxList>
                 </ComboboxPopover>
-        </Combobox>
-        )
+            </Combobox>
+        </Grid>
+
+    )
 }

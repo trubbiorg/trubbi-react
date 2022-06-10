@@ -56,7 +56,7 @@ export default function EventForm() {
               renderInput={(params) => <TextField required fullWidth {...params} />} />
           </LocalizationProvider>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={4}>
           <Map/>
         </Grid>
         <Grid item xs={12}>
