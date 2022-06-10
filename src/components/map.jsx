@@ -17,7 +17,7 @@ export default function Places() {
 
 function Map() {
     const containerStyle = {
-        width: '1100px',
+        width: '100%',
         height: '400px'
     };
 
@@ -82,7 +82,7 @@ const PlacesAutocomplete = ({ setSelected, map, setMap }) => {
         <Grid>
             <Combobox onSelect={handleSelect} fullwidth style={{ height: 75, float: 'left', width: '100%' }}>
                 <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready}
-                    className="combobox-input" placeholder="Direccion*" as={TextField} label="Direccion" fullWidth />
+                    className="combobox-input" as={TextField} label="Direccion*" fullWidth />
                 <ComboboxPopover>
                     <ComboboxList style={{
                         color: "#454545",
