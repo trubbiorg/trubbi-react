@@ -1,21 +1,28 @@
-import * as React from 'react'
+import React, { Component } from "react";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Autocomplete } from "@react-google-maps/api";
 import GeoAutocomplete from '../components/geoautocomplete';
+import Map from '../components/map';
+import { render } from "react-dom";
+import { withScriptjs } from "react-google-maps";
+
 
 export default function EventForm() {
   const [value, setValue] = React.useState({ start: new Date('2014-08-18T21:11:54'), end: new Date('2014-08-18T21:11:54') });
 
   const handleStart = (newValue) => {
-    setValue(...value, {start: newValue});
+    setValue(...value, { start: newValue });
   };
 
   const handleEnd = (newValue) => {
-    setValue(...value, {end: newValue});
+    setValue(...value, { end: newValue });
   };
+
+  const MapLoader = withScriptjs(Map);
 
   return (
     <Paper elevation={3} sx={{ padding: 2 }}>
@@ -24,40 +31,38 @@ export default function EventForm() {
           <Typography variant="h4">
             Nuevo Evento
           </Typography>
-        </Grid>  
+        </Grid>
         <Grid item xs={12} md={6}>
-          <Button sx={{ float:'right' }} variant="outlined" component="label" color="primary">
+          <Button sx={{ float: 'right' }} variant="outlined" component="label" color="primary">
             <Typography variant="h7" mr={1}>
               Subir Foto
             </Typography>
-            <AddAPhotoIcon/>
+            <AddAPhotoIcon />
             <input type="file" hidden />
-          </Button> 
-        </Grid>  
-        <Grid item xs={12} md={3}>
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={4}>
           <TextField required id="cardName" label="Titulo" fullWidth />
         </Grid>
-        <Grid item xs={12} md={3}>
-          <GeoAutocomplete/>
-        </Grid>
-        <Grid item xs={12} md={3}>          
+        <Grid item xs={12} md={4}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker label="Inicio" value={value.start} onChange={handleStart}
-              renderInput={(params) => <TextField fullWidth {...params} />}
-            />
+              renderInput={(params) => <TextField fullWidth {...params} />} />
           </LocalizationProvider>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker label="Fin" value={value.end} onChange={handleEnd}
-              renderInput={(params) => <TextField required fullWidth {...params} />}
-            />
+              renderInput={(params) => <TextField required fullWidth {...params} />} />
           </LocalizationProvider>
+        </Grid>
+        <Grid item xs={12}>
+          <Map/>
         </Grid>
         <Grid item xs={12}>
           <TextField required id="cardName" label="Descripcion" multiline rows={5} fullWidth />
         </Grid>
-        <Grid item xs={12}>      
+        <Grid item xs={12}>
           <Button variant="outlined" sx={{ float: 'right' }}>Guardar</Button>
           <Button variant="outlined" sx={{ float: 'right', marginRight: 2 }} color="secondary">Volver</Button>
         </Grid>
