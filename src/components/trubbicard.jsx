@@ -50,7 +50,7 @@ export default function TrubbiCard(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "block", width: "100%", marginBottom: 1 }}>
-          {(true) ? showActive() : showFinished()}
+          {(false) ? showActive() : showFinished()}
         </CardActions>
       </Box>
     </Card>
