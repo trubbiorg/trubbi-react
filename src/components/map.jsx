@@ -30,6 +30,8 @@ function Map() {
 
     const [selected, setSelected] = React.useState(null)
 
+    const [address, setAddress] = React.useState(null)
+
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);
         map.panTo(new window.google.maps.LatLng(center))
@@ -44,7 +46,7 @@ function Map() {
     return (
         <>
             <Grid>
-                <PlacesAutocomplete setSelected={setSelected} setMap={setMap} map={map} />
+                <PlacesAutocomplete setSelected={setSelected} map={map} setAdress={setAddress} />
             </Grid>
             <GoogleMap
                 zoom={15}
@@ -58,7 +60,7 @@ function Map() {
     )
 }
 
-const PlacesAutocomplete = ({ setSelected, map, setMap }) => {
+const PlacesAutocomplete = ({ setSelected, map, setAddress }) => {
     const {
         ready,
         value,
@@ -67,14 +69,15 @@ const PlacesAutocomplete = ({ setSelected, map, setMap }) => {
         clearSuggestions
     } = usePlacesautocomplete()
 
-    const handleSelect = async (address) => {
-        setValue(address, false)
+    const handleSelect = async (adrs) => {
+        setAddress(adrs)
+        setValue(adrs, false)
         clearSuggestions()
 
-        const results = await getGeocode({ address })
+        const results = await getGeocode({ adrs })
         const { lat, lng } = await getLatLng(results[0])
         setSelected({ lat, lng })
-        map.setZoom(18)
+        map.setZoom(15)
         map.panTo(new window.google.maps.LatLng({ lat, lng }))
     }
 
