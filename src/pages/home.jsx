@@ -1,15 +1,24 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Stack } from '@mui/material';
 import TrubbiCard from '../components/trubbicard'
+import genericDataService from '../helpers/genericDataService';
+
+const eventsDataService = new genericDataService("/events");
 
 export default function Home(props) {
 
-  const quantity = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    eventsDataService.index().then(
+      response => setEvents(response.data)
+    );
+  }, []) // GET localhost:3060/events
 
   return (
     <Stack spacing={2}>
-      {quantity.map((number) => (
-        <TrubbiCard number={number} />
+      {events.map((event) => (
+        <TrubbiCard event={event} />
       ))}
     </Stack>
   );

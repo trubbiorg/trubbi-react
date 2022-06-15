@@ -2,10 +2,10 @@ version: '3.2'
 services:
     react:
         container_name: trubbi-react
-        image: node:16.14.2-slim
+        image: node:16.14.2-alpine
         user: node
         working_dir: /var/www/html
-        command: bash -c "npm install && npm run start"
+        command: sh -c "npm install && npm run start"
         volumes:
             - ./:/var/www/html/
         ports:
@@ -15,3 +15,5 @@ services:
 
 networks:
   trubbi-net:
+    external: true
+    name: trubbi-network

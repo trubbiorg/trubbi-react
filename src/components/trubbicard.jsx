@@ -24,7 +24,7 @@ export default function TrubbiCard(props) {
   }
 
   return (
-    <Card key={props.number} sx={{ display: "flex", minWidth: 275 }}>
+    <Card key={props.event} sx={{ display: "flex", minWidth: 275 }}>
       <CardContent sx={{ paddingBottom: 0 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <img style={{ borderRadius: '16px' }} src={logo} alt="Logo" />
@@ -33,7 +33,7 @@ export default function TrubbiCard(props) {
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ paddingBottom: 0 }}>
           <Typography variant="h5" component="div">
-            Evento X
+            {props.event.title}
           </Typography>
           <Typography sx={{ mb: 1.5 }} style={{fontStyle: "italic"}} color="text.secondary">
             17/05/2020, Juan B Justo 2725
@@ -43,7 +43,7 @@ export default function TrubbiCard(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "block", width: "100%", marginBottom: 1 }}>
-          {(true) ? showActive() : showFinished()}
+          {(false) ? showActive() : showFinished()}
         </CardActions>
       </Box>
     </Card>
