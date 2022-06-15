@@ -5,39 +5,31 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
 
-const ProviderCard = () => {
+
+export default function ProviderCard(props){
+ 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image="https://picsum.photos/150?random=8"
-        alt="green iguana"
-      />
+    <Card number={props.provider} sx={{ maxWidth: 345 }}> 
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Teatro Núcleo
+        {props.provider.name}
         </Typography>
-            <Typography variant="body2" color="text.secondary">
-            contacto@teatronucleo.com.ar
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-            11 4004 1042 
-            </Typography>
         <Typography variant="body2" color="text.secondary">
-            Av. Maipú 3143
+        {props.provider.status}
         </Typography>
-            <Typography variant="body2" color="text.secondary">
-            Olivos, Vicente López, Buenos Aires 
-            </Typography>
       </CardContent>
       <CardActions>
+        <Box>
         <Button size="small">Modificar</Button>
-        <Button size="small">Ver más</Button>
+        {/* <Link to={`/providerProfile/${props.provider.id}`}><Button size="small">Ver más</Button></Link> */}
+        <Link to="/providerProfile"><Button size="small">Ver más</Button></Link>
+        </Box>      
       </CardActions>
     </Card>
   );
 }
 
-export default ProviderCard;
+//export default ProviderCard;

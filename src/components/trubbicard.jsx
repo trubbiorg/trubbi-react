@@ -19,8 +19,8 @@ export default function TrubbiCard(props) {
     );
   }
 
-  const showFinished = () => {
-    return (<Link to="opinions"><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Ver Opiniones</Button></Link>);
+  const showFinished = (eventId) => {
+    return (<Link to={`opinions/${eventId}`}><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Ver Opiniones</Button></Link>);
   }
 
 
@@ -33,12 +33,9 @@ export default function TrubbiCard(props) {
       </CardContent>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ paddingBottom: 0 }}>
-          <Typography variant="h5" component="div">
-            {props.event.title}
-          </Typography>
-          <Typography variant="subtitle2" component="div">
-            Proveedor: {props.event.provider}
-          </Typography>
+            <Typography variant="h5" component="div">
+              {props.event.title}
+            </Typography>      
           <Typography sx={{ mb: 1.5 }} style={{fontStyle: "italic"}} color="text.secondary">
             Latitud: {props.event.latitude} - Longitud: {props.event.longitude}
           </Typography>
@@ -50,7 +47,7 @@ export default function TrubbiCard(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "block", width: "100%", marginBottom: 1 }}>
-          {(false) ? showActive() : showFinished()}
+          {(false) ? showActive() : showFinished(props.event.id)}
         </CardActions>
       </Box>
     </Card>
