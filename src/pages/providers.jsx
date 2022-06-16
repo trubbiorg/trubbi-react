@@ -3,6 +3,7 @@ import CardProviders from "../components/providercard";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import genericDataService from '../helpers/genericDataService';
+
 const providersDataService = new genericDataService("/providers");
 
 export default function AdminHome(props) {

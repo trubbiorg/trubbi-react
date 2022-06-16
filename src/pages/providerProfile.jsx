@@ -1,17 +1,26 @@
-import * as React from "react";
+import React, { useState, useEffect } from 'react'
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { useParams } from 'react-router-dom';
+import genericDataService from '../helpers/genericDataService'
 
-export default function ProviderProfile() {
-  const [value, setValue] = React.useState({
-    start: new Date("2014-08-18T21:11:54"),
-    end: new Date("2014-08-18T21:11:54"),
-  });
+const providersDataService = new genericDataService("/providers");
+
+export default function ProviderProfile(props) {
+
+
+  const [provider, setProvider] = useState([]);
+
+  useEffect(()=> {
+    providersDataService.show(props.id).then(
+      response => setProvider(response.data)
+    )
+  },[])
 
   return (
     <Paper elevation={3} sx={{ padding: 2 }} xs={8}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <Typography variant="h4">Mi perfil</Typography>
+          <Typography variant="h4">Perfil de {provider.name}</Typography>
         </Grid>
         <Grid item xs={12} md={8}>
           <TextField

@@ -7,10 +7,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
+import ProviderProfile from '../pages/providerProfile';
 
 
 export default function ProviderCard(props){
  
+
   return (
     <Card number={props.provider} sx={{ maxWidth: 345 }}> 
       <CardContent>
@@ -24,6 +26,7 @@ export default function ProviderCard(props){
       <CardActions>
         <Box>
         <Button size="small">Modificar</Button>
+        <ProviderProfile id={ props.provider.id }/>
         {/* <Link to={`/providerProfile/${props.provider.id}`}><Button size="small">Ver más</Button></Link> */}
         <Link to="/providerProfile"><Button size="small">Ver más</Button></Link>
         </Box>      
@@ -32,4 +35,3 @@ export default function ProviderCard(props){
   );
 }
 
-//export default ProviderCard;
