@@ -19,9 +19,10 @@ export default function TrubbiCard(props) {
     );
   }
 
-  const showFinished = () => {
-    return (<Link to="opinions"><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Ver Opiniones</Button></Link>);
+  const showFinished = (eventId) => {
+    return (<Link to={`opinions/${eventId}`}><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Ver Opiniones</Button></Link>);
   }
+
 
   return (
     <Card key={props.event} sx={{ display: "flex", minWidth: 275 }}>
@@ -32,18 +33,21 @@ export default function TrubbiCard(props) {
       </CardContent>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ paddingBottom: 0 }}>
-          <Typography variant="h5" component="div">
-            {props.event.title}
-          </Typography>
+            <Typography variant="h5" component="div">
+              {props.event.title}
+            </Typography>      
           <Typography sx={{ mb: 1.5 }} style={{fontStyle: "italic"}} color="text.secondary">
-            17/05/2020, Juan B Justo 2725
+            Latitud: {props.event.latitude} - Longitud: {props.event.longitude}
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.primary">
+            {props.event.description}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+            Comienza: {props.event.start_date} - Finaliza: {props.event.end_date}
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "block", width: "100%", marginBottom: 1 }}>
-          {(false) ? showActive() : showFinished()}
+          {(false) ? showActive() : showFinished(props.event.id)}
         </CardActions>
       </Box>
     </Card>

@@ -54,7 +54,7 @@ const App = () => {
             element={loggedIn ? <Home /> : <Login onLoggedIn={logIn} />}
           />
           <Route
-            path="opinions"
+            path="opinions/:id"
             element={loggedIn ? <Opinions /> : <Login onLoggedIn={logIn} />}
           />
           <Route
