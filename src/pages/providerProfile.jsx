@@ -98,9 +98,7 @@ export default function ProviderProfile() {
           <Button variant="outlined"  sx={{ float: "right"  , marginRight: 2 }}
           onClick={() => navigate(-1)}>
               Volver
-          </Button>
-
-         
+          </Button>         
         </Grid>
       </Grid>
     </Paper>
