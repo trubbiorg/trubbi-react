@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const CategCard = () => {
+export default function CategCard(props){
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -17,15 +17,12 @@ const CategCard = () => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        Deportes
+        {props.category.name}
         </Typography>
       <CardActions>
-        <Button size="small">Modificar</Button>
-        <Button size="small">Ver más</Button>
+        <Button size="small" sx={{ marginLeft: 30 }} style={{ color: 'red' }}>Eliminar</Button>
       </CardActions>
       </CardContent>
     </Card>
     );
 }
-
-export default CategCard;
