@@ -78,7 +78,18 @@ const App = () => {
               loggedIn ? <ProviderProfile /> : <Login onLoggedIn={logIn} />
             }
           />
+          <Route path="categories" 
+          element={
+            adminLoggedIn ? (
+            <AdminCategories />
+            ) : (
+            <Login onLoggedIn={adminLogIn} />
+            )
+          }
+          />
+
         </Routes>
+      
       </Container>
     </BrowserRouter>
   );

@@ -1,22 +1,33 @@
-import * as React from "react";
-import CardProviders from "../components/providercard";
+import React, { useState, useEffect } from 'react'
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AppMenu from "../components/appmenu";
+import Typography from '@mui/material/Typography';
+import CategCard from '../components/categcard'
+import genericDataService from '../helpers/genericDataService';
+
+const categoriesDataService = new genericDataService("/categories");
 
 export default function AdminCategories() {
-  const quantity = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    const [categories,setCategories] = useState([])
+
+    useEffect(()=> {
+        categoriesDataService.index().then(
+          response => setCategories(response.data)
+        )
+      },[])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-        {quantity.map((num) => (
-          <Grid item xs={2} sm={4} md={4} key={num}>
-            <CardProviders number={num} />
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
+      {categories.map((category) => (
+        <Grid item xs={2} sm={4} md={4} key={category}>
+          <CategCard category={category} />
+        </Grid>
+      ))}
+    </Grid>
+  </Box>
   );
 };
