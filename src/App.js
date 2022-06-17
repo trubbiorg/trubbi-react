@@ -11,6 +11,7 @@ import AdminHome from "./pages/providers.jsx";
 import ProviderForm from "./pages/providerForm.jsx";
 import ProviderProfile from "./pages/providerProfile.jsx";
 import Map from "./components/map.jsx";
+import AdminCategories from "./pages/categories.jsx"
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -77,7 +78,18 @@ const App = () => {
               loggedIn ? <ProviderProfile /> : <Login onLoggedIn={logIn} />
             }
           />
+          <Route path="categories" 
+          element={
+            adminLoggedIn ? (
+            <AdminCategories />
+            ) : (
+            <Login onLoggedIn={adminLogIn} />
+            )
+          }
+          />
+
         </Routes>
+      
       </Container>
     </BrowserRouter>
   );
