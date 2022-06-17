@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import genericDataService from '../helpers/genericDataService'
 
 const providersDataService = new genericDataService("/providers");
 
+
 export default function ProviderProfile() {
+
+  const navigate = useNavigate();
 
   let {id} = useParams();
 
@@ -28,20 +31,14 @@ export default function ProviderProfile() {
           value= {provider.name}
           label= "Nombre"
           InputLabelProps={{ shrink: true }}
-          fullWidth 
-          InputProps={{
-            readOnly: true,
-          }}/>
+          fullWidth />
         </Grid>
         <Grid item xs={12} md={8}>
           <TextField 
           label="Email"
           InputLabelProps={{ shrink: true }}
           defaultValue={"Email empresita"} 
-          fullWidth 
-          InputProps={{ 
-            readOnly: true,
-          }}/>
+          fullWidth />
         </Grid>
         <Grid item xs={12} md={8}>
         <TextField 
@@ -49,9 +46,6 @@ export default function ProviderProfile() {
           InputLabelProps={{ shrink: true }}
           value= {provider.status}
           fullWidth 
-          InputProps={{ 
-            readOnly: true,
-          }}
           />
         </Grid>
         <Grid item xs={12} md={8}>
@@ -59,9 +53,16 @@ export default function ProviderProfile() {
         </Grid>
 
         <Grid item xs={12}>
-          <Button variant="outlined" sx={{ float: "right" }}>
+        <Button variant="outlined" sx={{ float: "right"}}>
             Modificar
           </Button>
+
+          <Button variant="outlined"  sx={{ float: "right"  , marginRight: 2 }}
+          onClick={() => navigate(-1)}>
+              Volver
+          </Button>
+
+         
         </Grid>
       </Grid>
     </Paper>

@@ -1,9 +1,13 @@
 import * as React from 'react'
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import GeoAutocomplete from '../components/geoautocomplete.jsx'
 
 
 export default function ProviderForm() {
+
+  const navigate = useNavigate();
+
    const [value, setValue] = React.useState({ start: new Date('2014-08-18T21:11:54'), end: new Date('2014-08-18T21:11:54') });
   
     const handleStart = (newValue) => {
@@ -33,7 +37,10 @@ return (
         </Grid>
         <Grid item xs={12}>     
           <Button variant="outlined" sx={{ float: 'right' }}>Guardar</Button>
-          <Button variant="outlined" sx={{ float: 'right', marginRight: 2 }} color="secondary">Volver</Button>
+          <Button variant="outlined"  sx={{ float: "right"  , marginRight: 2 }}
+          onClick={() => navigate(-1)}>
+              Volver
+          </Button>         
         </Grid>
       </Grid>
     </Paper>
