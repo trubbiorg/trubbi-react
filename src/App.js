@@ -12,6 +12,8 @@ import ProviderForm from "./pages/providerForm.jsx";
 import ProviderProfile from "./pages/providerProfile.jsx";
 import Map from "./components/map.jsx";
 import AdminCategories from "./pages/categories.jsx"
+import CategoryForm from "./pages/categoryForm.jsx"
+import ProviderEvents from "./pages/providerEvents.jsx"
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -86,6 +88,18 @@ const App = () => {
             <Login onLoggedIn={adminLogIn} />
             )
           }
+          />
+          <Route path="categories/categoryForm" 
+          element={
+            adminLoggedIn ? (
+            <CategoryForm />
+            ) : (
+            <Login onLoggedIn={adminLogIn} />
+            )
+          }
+          />
+           <Route path="admin/providerEvents/:id"
+            element={adminLoggedIn ? <ProviderEvents /> : <Login onLoggedIn={adminLogIn} />}
           />
 
         </Routes>

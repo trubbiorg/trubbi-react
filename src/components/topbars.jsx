@@ -20,7 +20,7 @@ export function TopBar(props) {
     <AppBar sx={{ backgroundColor: '#3b58ed' }} >
       <Toolbar>
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/" style={{ fontWeight: 'bold', color: 'white', textDecoration: 'none' }}>
               Trubbi
           </Link>
         </Typography>
@@ -54,7 +54,7 @@ export function AdminTopBar(props) {
     <AppBar sx={{ backgroundColor: '#3b58ed' }} >
       <Toolbar>
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          <Link to="/" style={{ textDecoration: 'none', fontWeight: 'bold', color: 'white' }}>
+          <Link to="/admin" style={{ textDecoration: 'none', fontWeight: 'bold', color: 'white' }}>
               Trubbi
           </Link>
         </Typography>
