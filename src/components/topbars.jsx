@@ -54,10 +54,13 @@ export function AdminTopBar(props) {
     <AppBar sx={{ backgroundColor: '#3b58ed' }} >
       <Toolbar>
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/" style={{ textDecoration: 'none', fontWeight: 'bold', color: 'white' }}>
               Trubbi
           </Link>
         </Typography>
+          <Link to="categories" style={{ color: 'white', textDecoration: 'none' }}>
+          <Button sx={{ flexGrow: 1 }}variant="clear">Categorías</Button>
+          </Link>
         <Link to="providerForm" style={{ textDecoration: 'none' }}>
           <Button variant="contained" sx={{ marginRight: 2 }}>Agregar Proveedor</Button>
         </Link>
