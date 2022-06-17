@@ -62,22 +62,23 @@ export default function ProviderProfile() {
           defaultValue={"Email empresita"} 
           fullWidth />
         </Grid>
-        <Grid item xs={12} md={8}>
+        {/* <Grid item xs={12} md={8}>
         <TextField 
           label= "Estado" 
           InputLabelProps={{ shrink: true }}
           value= {provider.status}
           fullWidth 
           />
-        </Grid>
-        <Grid>
+        </Grid> */}
+        <Grid item xs={12} md={8}>
         <TextField
           id="outlined-select-statuses"
           select
           label="Select"
           value={statuses}
           onChange={handleChange}
-          helperText="Seleccine el estado del proveedor"
+          helperText="Seleccine el estado"
+          fullWidth
         >
           {providerStatuses.map((option) => (
             <MenuItem key={option.value} value={option.value}>
