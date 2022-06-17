@@ -35,6 +35,10 @@ class genericDataService {
 	destroy(id) {
 		return apiClient.delete(`${this.resource}/${id}`);
 	}
+
+	lookup(route) {
+		return apiClient.get(route);
+	}
 }
 
 export default genericDataService;

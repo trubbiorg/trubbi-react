@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 
+
 export default function ProviderCard(props){
  
   
@@ -25,9 +26,14 @@ export default function ProviderCard(props){
       </CardContent>
       <CardActions>
         <Box>
-        <Button size="small">Modificar</Button>
-        <Button size="small">Ver eventos</Button>
-        <Link to={`/providerProfile/${props.provider.id}`}><Button size="small">Ver más</Button></Link>
+        <Button size="small" sx={{ flexGrow: 1 }}variant="clear">Modificar</Button>
+        <Link to={`providerEvents/${props.provider.id}`} style={{ textDecoration: 'none' }}>
+          <Button variant="clear">Ver eventos</Button>
+        </Link>
+        <Link to={`/providerProfile/${props.provider.id}`}>
+          <Button sx={{ flexGrow: 1 }}variant="clear">Ver más</Button>
+        </Link>
+        
         </Box>      
       </CardActions>
     </Card>
