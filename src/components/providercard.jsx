@@ -7,11 +7,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
-import ProviderProfile from '../pages/providerProfile';
 
 
 export default function ProviderCard(props){
  
+  
 
   return (
     <Card number={props.provider} sx={{ maxWidth: 345 }}> 
