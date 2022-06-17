@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Button, Grid, Paper, TextField, Typography, MenuItem } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
 import genericDataService from '../helpers/genericDataService'
 
@@ -9,8 +9,30 @@ const providersDataService = new genericDataService("/providers");
 export default function ProviderProfile() {
 
   const navigate = useNavigate();
-
   let {id} = useParams();
+  const providerStatuses = [
+    {
+      value: 'Esperando aprobacion',
+      label: 'Esperando aprobacion',
+    },
+    {
+      value: 'Aprobado',
+      label: 'Aprobado',
+    },
+    {
+      value: 'Desaprobado',
+      label: 'Desaprobado',
+    },
+    {
+      value: 'Dado de Baja',
+      label: 'Dado de Baja',
+    },
+  ];
+  const [statuses, setstatuses] = React.useState('Dado de Baja');
+
+  const handleChange = (event) => {
+    setstatuses(event.target.value);
+  };
 
   const [provider, setProvider] = useState([]);
 
@@ -47,6 +69,22 @@ export default function ProviderProfile() {
           value= {provider.status}
           fullWidth 
           />
+        </Grid>
+        <Grid>
+        <TextField
+          id="outlined-select-statuses"
+          select
+          label="Select"
+          value={statuses}
+          onChange={handleChange}
+          helperText="Seleccine el estado del proveedor"
+        >
+          {providerStatuses.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         </Grid>
         <Grid item xs={12} md={8}>
           <Button variant="contained">Change Password</Button>
