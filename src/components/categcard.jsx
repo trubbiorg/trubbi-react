@@ -9,12 +9,6 @@ import Typography from '@mui/material/Typography';
 export default function CategCard(props){
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image="https://picsum.photos/150?random=8"
-        alt="green iguana"
-      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
         {props.category.name}
