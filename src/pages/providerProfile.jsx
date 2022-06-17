@@ -5,13 +5,14 @@ import genericDataService from '../helpers/genericDataService'
 
 const providersDataService = new genericDataService("/providers");
 
-export default function ProviderProfile(props) {
+export default function ProviderProfile() {
 
+  let {id} = useParams();
 
   const [provider, setProvider] = useState([]);
 
   useEffect(()=> {
-    providersDataService.show(props.id).then(
+    providersDataService.show(id,"/providers").then(
       response => setProvider(response.data)
     )
   },[])

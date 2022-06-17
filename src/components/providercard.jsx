@@ -26,8 +26,7 @@ export default function ProviderCard(props){
       <CardActions>
         <Box>
         <Button size="small">Modificar</Button>
-        {/* <ProviderProfile id={ props.provider.id }/> */}
-        <Link to={`/providerProfile/`}><Button size="small">Ver más</Button></Link>
+        <Link to={`/providerProfile/${props.provider.id}`}><Button size="small">Ver más</Button></Link>
         {/* <Link to="/providerProfile"><Button size="small">Ver más</Button></Link> */}
         </Box>      
       </CardActions>

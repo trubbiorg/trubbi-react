@@ -9,7 +9,6 @@ const providersDataService = new genericDataService("/providers");
 export default function AdminHome(props) {
   const [providers,setProviders] = useState([])
 
-  
 
   useEffect(()=> {
     providersDataService.index().then(

@@ -72,7 +72,7 @@ const App = () => {
             }
           />
           <Route
-            path="providerProfile"
+            path="providerProfile/:id"
             element={
               loggedIn ? <ProviderProfile /> : <Login onLoggedIn={logIn} />
             }
