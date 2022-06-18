@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
+import Grid from "@mui/material/Grid";
 
 
 
@@ -26,14 +27,14 @@ export default function ProviderCard(props){
       </CardContent>
       <CardActions>
         <Box>
-        <Button size="small" sx={{ flexGrow: 1 }}variant="clear">Modificar</Button>
-        <Link to={`providerEvents/${props.provider.id}`} style={{ textDecoration: 'none' }}>
-          <Button variant="clear">Ver eventos</Button>
-        </Link>
-        <Link to={`/providerProfile/${props.provider.id}`}>
-          <Button sx={{ flexGrow: 1 }}variant="clear">Ver más</Button>
-        </Link>
-        
+          <Grid container justifyContent="right">
+            <Link to={`providerEvents/${props.provider.id}`} style={{ textDecoration: 'none' }}>
+              <Button variant="clear">Ver eventos</Button>
+            </Link>
+            <Link to={`/providerProfile/${props.provider.id}`}>
+              <Button variant="clear" style={{ textDecoration: 'none' }}>Ver más</Button>
+            </Link>
+          </Grid>
         </Box>      
       </CardActions>
     </Card>

@@ -20,12 +20,15 @@ export default function ProviderForm() {
     const onSubmit = () => {
       console.log("Llegó")
       providersDataService.store(providerRequest).then(
-        response => response
-      ).catch(
-        response=>console.log(response.data)
-      )
-      navigate("/admin")
+        response => {
+          navigate("/admin")
+          return response
+        }
+        ).catch(
+          response=>console.log(response.data)
+        )
     }
+    
 
 return (
     <Paper elevation={3} sx={{ padding: 2}} xs = {8}>
