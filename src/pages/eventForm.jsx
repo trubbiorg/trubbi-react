@@ -15,11 +15,11 @@ export default function EventForm() {
   const [value, setValue] = React.useState({ start: new Date('2014-08-18T21:11:54'), end: new Date('2014-08-18T21:11:54') });
 
   const handleStart = (newValue) => {
-    setValue(...value, { start: newValue });
+    setValue({...value,start:newValue});
   };
 
   const handleEnd = (newValue) => {
-    setValue(...value, { end: newValue });
+    setValue({...value, end:newValue });
   };
 
   const MapLoader = withScriptjs(Map);
