@@ -24,6 +24,7 @@ export default function CategoryForm() {
     ).catch(
       response=>console.log(response.data)
     )
+    navigate("/categories")
   }
   
 return (
