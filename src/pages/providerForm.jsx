@@ -24,6 +24,7 @@ export default function ProviderForm() {
       ).catch(
         response=>console.log(response.data)
       )
+      navigate("/admin")
     }
 
 return (
