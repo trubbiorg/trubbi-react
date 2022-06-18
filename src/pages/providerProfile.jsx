@@ -9,6 +9,7 @@ const providersDataService = new genericDataService("/providers");
 export default function ProviderProfile() {
 
   const navigate = useNavigate();
+
   let {id} = useParams();
   const providerStatuses = [
     {
@@ -30,7 +31,7 @@ export default function ProviderProfile() {
   ];
   const [statuses, setstatuses] = React.useState('Dado de Baja');
 
-  const handleChange = (event) => {
+  const handleStatusChange = (event) => {
     setstatuses(event.target.value);
   };
 
@@ -41,6 +42,23 @@ export default function ProviderProfile() {
       response => setProvider(response.data)
     )
   },[])
+
+  const [providerRequest, setProviderRequest] = React.useState({});
+
+  const handleChange = (event) => {
+    setProviderRequest({...providerRequest,[event.target.name]:event.target.value});
+    console.log(providerRequest)
+  };
+
+  const onSubmit = () => {
+    console.log("Llegó")
+    providersDataService.store(providerRequest).then(
+      response => response
+    ).catch(
+      response=>console.log(response.data)
+    )
+    navigate("/admin")
+  }
 
   return (
     <Paper elevation={3} sx={{ padding: 2 }} xs={8}>
@@ -59,25 +77,21 @@ export default function ProviderProfile() {
           <TextField 
           label="Email"
           InputLabelProps={{ shrink: true }}
-          defaultValue={"Email empresita"} 
-          fullWidth />
-        </Grid>
-        {/* <Grid item xs={12} md={8}>
-        <TextField 
-          label= "Estado" 
-          InputLabelProps={{ shrink: true }}
-          value= {provider.status}
           fullWidth 
+          onChange={handleChange}
+          name= "email"
+          value= {providerRequest.email ??""}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12} md={8}>
         <TextField
           id="outlined-select-statuses"
           select
           label="Select"
-          value={statuses}
-          onChange={handleChange}
-          helperText="Seleccine el estado"
+          onChange={handleStatusChange}
+          helperText="Seleccione el estado"
+          name= "name"
+          value= {providerRequest.status ??""}
           fullWidth
         >
           {providerStatuses.map((option) => (

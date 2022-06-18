@@ -1,22 +1,31 @@
 import * as React from 'react'
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import genericDataService from '../helpers/genericDataService';
 import GeoAutocomplete from '../components/geoautocomplete.jsx'
 
+const providersDataService = new genericDataService("/providers");
 
 export default function ProviderForm() {
 
   const navigate = useNavigate();
 
-   const [value, setValue] = React.useState({ start: new Date('2014-08-18T21:11:54'), end: new Date('2014-08-18T21:11:54') });
+   const [providerRequest, setProviderRequest] = React.useState({});
   
-    const handleStart = (newValue) => {
-      setValue(...value, {start: newValue});
+    const handleChange = (event) => {
+      setProviderRequest({...providerRequest,[event.target.name]:event.target.value});
+      console.log(providerRequest)
     };
-  
-    const handleEnd = (newValue) => {
-      setValue(...value, {end: newValue});
-    };
+
+    const onSubmit = () => {
+      console.log("Llegó")
+      providersDataService.store(providerRequest).then(
+        response => response
+      ).catch(
+        response=>console.log(response.data)
+      )
+      navigate("/admin")
+    }
 
 return (
     <Paper elevation={3} sx={{ padding: 2}} xs = {8}>
@@ -27,16 +36,30 @@ return (
           </Typography>
         </Grid>        
         <Grid item xs={12} md={8}>
-          <TextField required id="cardName" label="Nombre" fullWidth />
+          <TextField required label="Nombre" fullWidth 
+          onChange={handleChange}
+          name= "name"
+          value= {providerRequest.name ??""}
+          />
         </Grid>
         <Grid item xs={12} md={8}>
-          <TextField required id="cardName" label="Email" fullWidth />
+          <TextField required label="Email" fullWidth 
+          onChange={handleChange}
+          name= "email"
+          value= {providerRequest.email ??""}/>
         </Grid>        
         <Grid item xs={12} md={8} >
-          <TextField required id="cardName" label="Password" fullWidth />
+          <TextField required label="Password" fullWidth 
+          onChange={handleChange}
+          name= "password"
+          value= {providerRequest.password ??""}
+          />
         </Grid>
         <Grid item xs={12}>     
-          <Button variant="outlined" sx={{ float: 'right' }}>Guardar</Button>
+          <Button variant="outlined" sx={{ float: 'right' }}
+          onClick={onSubmit}>
+            Guardar
+            </Button>
           <Button variant="outlined"  sx={{ float: "right"  , marginRight: 2 }}
           onClick={() => navigate(-1)}>
               Volver
