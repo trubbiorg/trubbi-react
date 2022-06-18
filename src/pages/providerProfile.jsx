@@ -6,7 +6,6 @@ import { ControlPointDuplicate } from '@mui/icons-material';
 
 const providersDataService = new genericDataService("/providers");
 
-<<<<<<< HEAD
   
   const providerStatuses = [
     {
@@ -26,77 +25,27 @@ const providersDataService = new genericDataService("/providers");
       label: 'Dado de Baja',
     },
   ];
-=======
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
 
 export default function ProviderProfile() {
 
   const navigate = useNavigate();
 
-<<<<<<< HEAD
   const {id} = useParams();
 
   const [statuses, setstatuses] = React.useState('Esperando aprobacion');
-=======
-  let {id} = useParams();
-  const providerStatuses = [
-    {
-      value: 'Esperando aprobacion',
-      label: 'Esperando aprobacion',
-    },
-    {
-      value: 'Aprobado',
-      label: 'Aprobado',
-    },
-    {
-      value: 'Desaprobado',
-      label: 'Desaprobado',
-    },
-    {
-      value: 'Dado de Baja',
-      label: 'Dado de Baja',
-    },
-  ];
-  const [statuses, setstatuses] = React.useState('Dado de Baja');
-
-  const handleStatusChange = (event) => {
-    setstatuses(event.target.value);
-  };
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
 
   const [providerRequest, setProviderRequest] = React.useState({});
 
   useEffect(()=> {
     providersDataService.show(id,"/providers").then(
-      response => setProviderRequest(response.data)
-      
+      response => setProviderRequest(response.data)      
     )
   },[])
 
-<<<<<<< HEAD
-=======
-  const [providerRequest, setProviderRequest] = React.useState({});
-
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
   const handleChange = (event) => {
     setProviderRequest({...providerRequest,[event.target.name]:event.target.value});
     console.log(providerRequest)
   };
-
-<<<<<<< HEAD
-  // const destroy = () => {
-  //   console.log("Llegó")
-  //   console.log()
-  //   providersDataService.destroy(id).then(
-  //     response => {
-  //       navigate("/admin")
-  //       return response
-  //     }
-  //   ).catch(
-  //     response=>console.log(response.data)
-  //   )
-    
-  // }
 
   const onSubmit = () => {
     console.log("Llegó")
@@ -109,16 +58,6 @@ export default function ProviderProfile() {
       ).catch(
         response=>console.log(response.data)
       )
-=======
-  const onSubmit = () => {
-    console.log("Llegó")
-    providersDataService.store(providerRequest).then(
-      response => response
-    ).catch(
-      response=>console.log(response.data)
-    )
-    navigate("/admin")
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
   }
 
   return (
@@ -129,14 +68,10 @@ export default function ProviderProfile() {
         </Grid>
         <Grid item xs={12} md={8}>
         <TextField 
-<<<<<<< HEAD
           InputProps={{
             readOnly: true,
           }}
           value= {providerRequest.name}
-=======
-          value= {provider.name}
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
           label= "Nombre"
           InputLabelProps={{ shrink: true }}
           fullWidth />
@@ -148,30 +83,18 @@ export default function ProviderProfile() {
           fullWidth 
           onChange={handleChange}
           name= "email"
-<<<<<<< HEAD
           value= {providerRequest.email}
-=======
-          value= {providerRequest.email ??""}
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
           />
         </Grid>
         <Grid item xs={12} md={8}>
         <TextField
           id="outlined-select-statuses"
           select
-<<<<<<< HEAD
           label="Estado"
           onChange={handleChange}
           helperText="Seleccione el estado"
           name= "status"
           value= {providerRequest.status}
-=======
-          label="Select"
-          onChange={handleStatusChange}
-          helperText="Seleccione el estado"
-          name= "name"
-          value= {providerRequest.status ??""}
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
           fullWidth
         >
           {providerStatuses.map((option) => (
@@ -185,11 +108,7 @@ export default function ProviderProfile() {
           <Button variant="contained">Change Password</Button>
         </Grid>
         <Grid item xs={12}>
-<<<<<<< HEAD
         <Button variant="outlined" sx={{ float: "right"}} onClick={onSubmit}>
-=======
-        <Button variant="outlined" sx={{ float: "right"}}>
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
             Modificar
           </Button>
 

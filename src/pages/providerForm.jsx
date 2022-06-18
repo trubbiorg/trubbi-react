@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import genericDataService from '../helpers/genericDataService';
-import GeoAutocomplete from '../components/geoautocomplete.jsx'
 
 const providersDataService = new genericDataService("/providers");
 
@@ -14,30 +13,21 @@ export default function ProviderForm() {
   
     const handleChange = (event) => {
       setProviderRequest({...providerRequest,[event.target.name]:event.target.value});
-      console.log(providerRequest)
+      console.log(`Handle change ${providerRequest}`)
     };
 
     const onSubmit = () => {
       console.log("Llegó")
       providersDataService.store(providerRequest).then(
-<<<<<<< HEAD
         response => {
+          console.log(response.data)
           navigate("/admin")
           return response
         }
         ).catch(
           response=>console.log(response.data)
         )
-    }
-    
-=======
-        response => response
-      ).catch(
-        response=>console.log(response.data)
-      )
-      navigate("/admin")
-    }
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
+    }    
 
 return (
     <Paper elevation={3} sx={{ padding: 2}} xs = {8}>

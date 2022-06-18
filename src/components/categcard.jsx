@@ -28,27 +28,17 @@ export default function CategCard(props){
         
       }
 
-<<<<<<< HEAD
   return (
     <Card sx={{ maxWidth: 350 }}>
-=======
-export default function CategCard(props){
-  return (
-    <Card sx={{ maxWidth: 345 }}>
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
         {props.category.name}
         </Typography>
       <CardActions>
-<<<<<<< HEAD
         <Grid container justifyContent="right">
           <Button size="small" style={{ color: 'red' }} 
           onClick={destroy} >Eliminar</Button>
         </Grid>
-=======
-        <Button size="small" sx={{ marginLeft: 30 }} style={{ color: 'red' }}>Eliminar</Button>
->>>>>>> 61efe9f135ef16bb49a45f6f190558c164afdcd3
       </CardActions>
       </CardContent>
     </Card>
