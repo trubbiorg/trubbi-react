@@ -5,14 +5,26 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Autocomplete } from "@react-google-maps/api";
+import { useNavigate } from 'react-router-dom';
 import GeoAutocomplete from '../components/geoautocomplete';
 import Map from '../components/map';
 import { render } from "react-dom";
 import { withScriptjs } from "react-google-maps";
+import genericDataService from '../helpers/genericDataService'
 
+const eventsDataService = new genericDataService("/events");
 
 export default function EventForm() {
+  const navigate = useNavigate();
+
   const [value, setValue] = React.useState({ start: new Date('2014-08-18T21:11:54'), end: new Date('2014-08-18T21:11:54') });
+
+  const [eventsRequest, setEventsRequest] = React.useState({});
+
+  const handleChange = (event) => {
+    setEventsRequest({...eventsRequest,[event.target.name]:event.target.value});
+    console.log(eventsRequest)
+  };
 
   const handleStart = (newValue) => {
     setValue({...value,start:newValue});
@@ -21,6 +33,19 @@ export default function EventForm() {
   const handleEnd = (newValue) => {
     setValue({...value, end:newValue });
   };
+
+  const onSubmit = () => {
+    console.log("Llegó")
+    eventsDataService.store(eventsRequest).then(
+      response => {
+        navigate("/events")
+        return response
+      }
+    ).catch(
+      response=>console.log(response.data)
+    )
+    
+  }
 
   const MapLoader = withScriptjs(Map);
 
@@ -42,7 +67,10 @@ export default function EventForm() {
           </Button>
         </Grid>
         <Grid item xs={12} md={4}>
-          <TextField required id="cardName" label="Titulo" fullWidth />
+          <TextField required id="cardName" label="Titulo" fullWidth
+          onChange={handleChange}
+          name= "title"
+          value= {eventsRequest.name ??""} />
         </Grid>
         <Grid item xs={12} md={4}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -57,13 +85,16 @@ export default function EventForm() {
           </LocalizationProvider>
         </Grid>
         <Grid item xs={12}>
-          <Map/>
+          <Map />
         </Grid>
         <Grid item xs={12}>
-          <TextField required id="cardName" label="Descripcion" multiline rows={5} fullWidth />
+          <TextField required id="cardName" label="Descripcion" multiline rows={5} fullWidth
+          onChange={handleChange}
+          name= "description"
+          value= {eventsRequest.description ??""} />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="outlined" sx={{ float: 'right' }}>Guardar</Button>
+          <Button variant="outlined" sx={{ float: 'right' }} onClick={onSubmit}>Guardar</Button>
           <Button variant="outlined" sx={{ float: 'right', marginRight: 2 }} color="secondary">Volver</Button>
         </Grid>
       </Grid>

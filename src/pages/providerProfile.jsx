@@ -48,18 +48,19 @@ export default function ProviderProfile() {
     console.log(providerRequest)
   };
 
-  const destroy = () => {
-    console.log("Llegó")
-    providersDataService.destroy(id).then(
-      response => {
-        navigate("/admin")
-        return response
-      }
-    ).catch(
-      response=>console.log(response.data)
-    )
+  // const destroy = () => {
+  //   console.log("Llegó")
+  //   console.log()
+  //   providersDataService.destroy(id).then(
+  //     response => {
+  //       navigate("/admin")
+  //       return response
+  //     }
+  //   ).catch(
+  //     response=>console.log(response.data)
+  //   )
     
-  }
+  // }
 
   const onSubmit = () => {
     console.log("Llegó")
@@ -121,23 +122,21 @@ export default function ProviderProfile() {
         <Grid item xs={12} md={8}>
           <Button variant="contained">Change Password</Button>
         </Grid>
-        <Grid container justifyContent="right">
         <Grid item xs={12}>
         <Button variant="outlined" sx={{ float: "right"}} onClick={onSubmit}>
             Modificar
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <Button variant="outlined"  sx={{ float: "right"  , marginRight: 2 }}
+        <Button variant="outlined"  sx={{ float: "right"  , marginRight: 2 }}
           onClick={() => navigate(-1)}>
               Volver
           </Button>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
           <Button variant="outlined" sx={{ float: "right"}} style={{ color: 'red' }} onClick={destroy} >Eliminar</Button>
-        </Grid>
+        </Grid> */}
         </Grid>         
-      </Grid>
     </Paper>
   );
 }
