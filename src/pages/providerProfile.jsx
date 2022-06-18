@@ -59,7 +59,6 @@ export default function ProviderProfile() {
           <TextField 
           label="Email"
           InputLabelProps={{ shrink: true }}
-          defaultValue={"Email empresita"} 
           fullWidth />
         </Grid>
         {/* <Grid item xs={12} md={8}>
