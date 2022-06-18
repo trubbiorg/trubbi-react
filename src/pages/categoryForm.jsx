@@ -20,11 +20,14 @@ export default function CategoryForm() {
   const onSubmit = () => {
     console.log("Llegó")
     categoriesDataService.store(categoryRequest).then(
-      response => response
+      response => {
+        navigate("/categories")
+        return response
+      }
     ).catch(
       response=>console.log(response.data)
     )
-    navigate("/categories")
+    
   }
   
 return (
