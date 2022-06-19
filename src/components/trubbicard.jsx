@@ -20,7 +20,7 @@ export default function TrubbiCard(props) {
   }
 
   const showFinished = (eventId) => {
-    return (<Link to={`opinions/${eventId}`}><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Ver Opiniones</Button></Link>);
+    return (<Link to={`opinions/${eventId}`}><Button variant="outlined"  size="small">Ver Opiniones</Button></Link>);
   }
 
 
@@ -47,7 +47,7 @@ export default function TrubbiCard(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "block", width: "100%", marginBottom: 1 }}>
-          {(false) ? showActive() : showFinished(props.event.id)}
+          {(true) ? showActive() : showFinished(props.event.id)}
         </CardActions>
       </Box>
     </Card>
