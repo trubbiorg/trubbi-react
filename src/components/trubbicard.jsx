@@ -10,17 +10,17 @@ import { Link } from 'react-router-dom';
 
 export default function TrubbiCard(props) {
 
-  const showActive = () => {
+  const showActive = (eventId) => {
     return (
       <Box>
         <Button variant="outlined" color='error' sx={{ float: "right" }} size="small">Eliminar</Button>
-        <Link to="eventForm"><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Modificar</Button></Link>
+        <Link to={`eventEditForm/${eventId}`}><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Modificar</Button></Link>
       </Box>
     );
   }
 
   const showFinished = (eventId) => {
-    return (<Link to={`opinions/${eventId}`}><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Ver Opiniones</Button></Link>);
+    return (<Link to={`opinions/${eventId}`}><Button variant="outlined"  size="small">Ver Opiniones</Button></Link>);
   }
 
 
@@ -28,7 +28,7 @@ export default function TrubbiCard(props) {
     <Card key={props.event} sx={{ display: "flex", minWidth: 275 }}>
       <CardContent sx={{ paddingBottom: 0 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <img style={{ borderRadius: '16px' }} src={logo} alt="Logo" />
+          <img style={{ borderRadius: '16px' }} src={props.event.photo} alt="Logo" />
         </Box>
       </CardContent>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -47,7 +47,7 @@ export default function TrubbiCard(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "block", width: "100%", marginBottom: 1 }}>
-          {(false) ? showActive() : showFinished(props.event.id)}
+          {(true) ? showActive(props.event.id) : showFinished(props.event.id)}
         </CardActions>
       </Box>
     </Card>
