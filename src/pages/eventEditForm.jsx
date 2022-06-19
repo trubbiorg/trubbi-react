@@ -76,7 +76,7 @@ export default function EventForm() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Typography variant="h4">
-          {`Modificar evento con id ${id}`}
+          {`Modificar evento "${eventsRequest.title}"`}
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -90,7 +90,7 @@ export default function EventForm() {
         </Grid>
 
         <Grid item xs={12} md={4}>
-        <TextField required label="Título" fullWidth 
+        <TextField required label="Título" fullWidth InputLabelProps={{ shrink: true }}
           onChange={handleChange}
           defaultValue= {eventsRequest.title}
           name= "title"
@@ -108,7 +108,7 @@ export default function EventForm() {
         <Grid item xs={12} md={4}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateTimePicker label="Fin" eventsRequest={eventsRequest.end} onChange={handleEnd}
-              renderInput={(params) => <TextField required  fullWidth {...params} />} />
+              renderInput={(params) => <TextField required  fullWidth {...params} defaultValue= {eventsRequest.address}/>} />
           </LocalizationProvider>
         </Grid>
 
