@@ -18,6 +18,8 @@ export default function EventForm() {
   
   const navigate = useNavigate();
 
+  const id = 1
+
   const [eventsRequest, setEventsRequest] = useState({ 
     // start: new Date('2014-08-18T21:11:54'), 
     // end: new Date('2014-08-18T21:11:54'), 
@@ -29,13 +31,12 @@ export default function EventForm() {
     latitude: 123,
     public: true,
     categoriesIds:[1, 2],
-    title:'The Event',
     description:'The Description',
-    providerId: 1
+    providerId: id
    });
 
   const handleChange = (event) => {
-    setEventsRequest({...eventsRequest,[event.target.name]:event.target.eventsRequest});
+    setEventsRequest({...eventsRequest,[event.target.name]:event.target.value});
     console.log(`handle change ${eventsRequest}`)
   };
 
@@ -52,12 +53,12 @@ export default function EventForm() {
     console.log(eventsRequest)
     eventsDataService.store(eventsRequest).then(
       response => {
-        navigate("/events")
+        navigate("/")
         return response
       }
     ).catch(
       response=>console.log(`catch ${response}`)
-    )    
+    )
   }
 
   const MapLoader = withScriptjs(Map);
@@ -81,7 +82,11 @@ export default function EventForm() {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <TextField required label="Titulo" fullWidth/>
+        <TextField required label="Título" fullWidth 
+          onChange={handleChange}
+          name= "title"
+          value= {eventsRequest.title}
+          />
         </Grid>
 
         <Grid item xs={12} md={4} >
@@ -103,7 +108,11 @@ export default function EventForm() {
         </Grid>
 
         <Grid item xs={12}>
-          <TextField required id="cardName" label="Descripcion" multiline rows={5} fullWidth/>
+          <TextField required id="cardName" label="Descripción" multiline rows={5} fullWidth
+          onChange={handleChange}
+          name= "description"
+          value= {eventsRequest.description}
+          />
         </Grid>
 
         <Grid item xs={12}>
