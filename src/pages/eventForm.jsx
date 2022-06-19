@@ -19,6 +19,7 @@ export default function EventForm() {
   const navigate = useNavigate();
 
   const id = 1
+  const imgSeed = randomNumber(1,99)
 
   const [eventsRequest, setEventsRequest] = useState({ 
     // start: new Date('2014-08-18T21:11:54'), 
@@ -26,7 +27,7 @@ export default function EventForm() {
     start_date: 123455678,
     end_date: 12344556,
     address: 'calle falsa 123',
-    photo: 'https://picsum.photos/150?random=8',
+    photo: `https://picsum.photos/150?random=${randomNumber(1,99)}`,
     longitude: 123,
     latitude: 123,
     public: true,
@@ -37,7 +38,6 @@ export default function EventForm() {
 
   const handleChange = (event) => {
     setEventsRequest({...eventsRequest,[event.target.name]:event.target.value});
-    console.log(`handle change ${eventsRequest}`)
   };
 
   const handleStart = (neweventsRequest) => {
@@ -122,4 +122,8 @@ export default function EventForm() {
       </Grid>
     </Paper>
   );
+
+  function randomNumber(min, max) { 
+    return Math.floor(Math.random() * (max - min) + min);
+} 
 }

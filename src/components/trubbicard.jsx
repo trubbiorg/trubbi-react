@@ -28,7 +28,7 @@ export default function TrubbiCard(props) {
     <Card key={props.event} sx={{ display: "flex", minWidth: 275 }}>
       <CardContent sx={{ paddingBottom: 0 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <img style={{ borderRadius: '16px' }} src={logo} alt="Logo" />
+          <img style={{ borderRadius: '16px' }} src={props.event.photo} alt="Logo" />
         </Box>
       </CardContent>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>

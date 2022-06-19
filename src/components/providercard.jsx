@@ -13,9 +13,6 @@ import Grid from "@mui/material/Grid";
 
 
 export default function ProviderCard(props){
- 
-  
-
   return (
     <Card number={props.provider} sx={{ maxWidth: 345 }}> 
       <CardContent>
