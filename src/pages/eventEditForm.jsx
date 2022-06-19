@@ -1,4 +1,4 @@
-import React, {  useState, Component } from "react";
+import React, {  useState, useEffect} from "react";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -17,7 +17,8 @@ const eventsDataService = new genericDataService("/events");
 export default function EventForm() {
   
   const navigate = useNavigate();
-  
+
+  const {id} = useParams();
 
   const [eventsRequest, setEventsRequest] = useState({ 
     // start: new Date('2014-08-18T21:11:54'), 
@@ -31,7 +32,7 @@ export default function EventForm() {
     public: true,
     categoriesIds:[1, 2],
     description:'The Description',
-    providerId: 1
+    providerId: id
    });
 
   const handleChange = (event) => {
@@ -49,7 +50,7 @@ export default function EventForm() {
   const onSubmit = () => {
     console.log("Llegó")
     console.log(eventsRequest)
-    eventsDataService.store(eventsRequest).then(
+    eventsDataService.update(id,eventsRequest).then(
       response => {
         navigate("/")
         return response
@@ -59,6 +60,15 @@ export default function EventForm() {
     )
   }
 
+  useEffect(()=> {
+    eventsDataService.show(id,"/events").then(
+        response => setEventsRequest(response.data)      
+      ).catch(
+        response=>console.log(response.data)
+      )
+  },[])
+ 
+
   const MapLoader = withScriptjs(Map);
 
   return (
@@ -66,7 +76,7 @@ export default function EventForm() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Typography variant="h4">
-            Nuevo Evento
+          {`Modificar evento con id ${id}`}
           </Typography>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -82,6 +92,7 @@ export default function EventForm() {
         <Grid item xs={12} md={4}>
         <TextField required label="Título" fullWidth 
           onChange={handleChange}
+          defaultValue= {eventsRequest.title}
           name= "title"
           value= {eventsRequest.title}
           />

@@ -10,11 +10,11 @@ import { Link } from 'react-router-dom';
 
 export default function TrubbiCard(props) {
 
-  const showActive = () => {
+  const showActive = (eventId) => {
     return (
       <Box>
         <Button variant="outlined" color='error' sx={{ float: "right" }} size="small">Eliminar</Button>
-        <Link to="eventForm"><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Modificar</Button></Link>
+        <Link to={`eventEditForm/${eventId}`}><Button variant="outlined" sx={{ float: "right", marginRight: 2 }} size="small">Modificar</Button></Link>
       </Box>
     );
   }
@@ -47,7 +47,7 @@ export default function TrubbiCard(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "block", width: "100%", marginBottom: 1 }}>
-          {(true) ? showActive() : showFinished(props.event.id)}
+          {(true) ? showActive(props.event.id) : showFinished(props.event.id)}
         </CardActions>
       </Box>
     </Card>

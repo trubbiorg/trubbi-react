@@ -14,6 +14,7 @@ import Map from "./components/map.jsx";
 import AdminCategories from "./pages/categories.jsx"
 import CategoryForm from "./pages/categoryForm.jsx"
 import ProviderEvents from "./pages/providerEvents.jsx"
+import EventEditForm from "./pages/eventEditForm.jsx"
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -64,6 +65,10 @@ const App = () => {
             path="eventForm"
             element={loggedIn ? <EventForm /> : <Login onLoggedIn={logIn} />}
           />
+           <Route
+            path="eventEditForm/:id"
+            element={loggedIn ? <EventEditForm /> : <Login onLoggedIn={logIn} />}
+          />          
           <Route
             path="providerForm"
             element={
