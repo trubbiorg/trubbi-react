@@ -1,116 +1,54 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./pages/login.jsx";
 import Home from "./pages/home.jsx";
 import Opinions from "./pages/opinions.jsx";
-import { TopBar, AdminTopBar } from "./components/topbars";
+import Tourists from "./pages/tourists.jsx";
+import { TopBar } from "./components/topbars";
 import { Container } from "@mui/material";
-import LoginAdmin from "./pages/loginadmin.jsx";
 import EventForm from "./pages/eventForm";
-import AdminHome from "./pages/providers.jsx";
-import ProviderForm from "./pages/providerForm.jsx";
-import ProviderProfile from "./pages/providerProfile.jsx";
-import Map from "./components/map.jsx";
-import AdminCategories from "./pages/categories.jsx"
-import CategoryForm from "./pages/categoryForm.jsx"
-import ProviderEvents from "./pages/providerEvents.jsx"
-import EventEditForm from "./pages/eventEditForm.jsx"
+// import AdminHome from "./pages/providers.jsx";
+// import ProviderForm from "./pages/providerForm.jsx";
+import Provider from "./pages/provider.jsx";
+// import AdminCategories from "./pages/categories.jsx";
+// import CategoryForm from "./pages/categoryForm.jsx";
+// import ProviderEvents from "./pages/providerEvents.jsx";
+// import EventEditForm from "./pages/eventEditForm.jsx";
+import { fetchProviderToken } from "./helpers/apiClient.jsx";
+import { useStateIfMounted } from "use-state-if-mounted";
+import Loading from './components/loading.jsx'
+import { AuthProvider, RequireAuth } from './helpers/authProvider.js'
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const logIn = () => {
-    setLoggedIn(true);
-  };
-
-  const logOut = () => {
-    setLoggedIn(false);
-  };
-
-  const [adminLoggedIn, setAdminLoggedIn] = useState(false);
-
-  const adminLogIn = () => {
-    setAdminLoggedIn(true);
-  };
-
-  const adminLogOut = () => {
-    setAdminLoggedIn(false);
-  };
+  const [loading, setLoading] = useStateIfMounted(false)
 
   return (
-    <BrowserRouter>
-      {loggedIn ? <TopBar onLoggedOut={logOut} /> : ""}
-      {adminLoggedIn ? <AdminTopBar onLoggedOut={adminLogOut} /> : ""}
-      <Container sx={{ marginTop: 10 }}>
-        <Routes>
-          <Route
-            path="/admin"
-            element={
-              adminLoggedIn ? (
-                <AdminHome />
-              ) : (
-                <LoginAdmin onLoggedIn={adminLogIn} />
-              )
-            }
-          />
-          <Route
-            path="/"
-            element={loggedIn ? <Home /> : <Login onLoggedIn={logIn} />}
-          />
-          <Route
-            path="opinions/:id"
-            element={loggedIn ? <Opinions /> : <Login onLoggedIn={logIn} />}
-          />
-          <Route
-            path="eventForm"
-            element={loggedIn ? <EventForm /> : <Login onLoggedIn={logIn} />}
-          />
-           <Route
-            path="eventEditForm/:id"
-            element={loggedIn ? <EventEditForm /> : <Login onLoggedIn={logIn} />}
-          />          
-          <Route
-            path="providerForm"
-            element={
-              adminLoggedIn ? (
-                <ProviderForm />
-              ) : (
-                <Login onLoggedIn={adminLogIn} />
-              )
-            }
-          />
-          <Route
-            path="providerProfile/:id"
-            element={
-              loggedIn ? <ProviderProfile /> : <Login onLoggedIn={logIn} />
-            }
-          />
-          <Route path="categories" 
-          element={
-            adminLoggedIn ? (
-            <AdminCategories />
-            ) : (
-            <Login onLoggedIn={adminLogIn} />
-            )
-          }
-          />
-          <Route path="categories/categoryForm" 
-          element={
-            adminLoggedIn ? (
-            <CategoryForm />
-            ) : (
-            <Login onLoggedIn={adminLogIn} />
-            )
-          }
-          />
-           <Route path="admin/providerEvents/:id"
-            element={adminLoggedIn ? <ProviderEvents /> : <Login onLoggedIn={adminLogIn} />}
-          />
-
-        </Routes>
-      
-      </Container>
-    </BrowserRouter>
+    <div>
+      { (loading) ? <Loading open={loading} /> : '' }
+      <BrowserRouter>
+        <AuthProvider>
+          {/* { user ? <AdminTopBar /> : '' } */}
+          <Container sx={{ marginTop: 10 }}>
+            <Routes>
+              <Route path="login" element={<Login loading={setLoading} />} />
+              <Route path="/" element={<RequireAuth loading={setLoading}><Home loading={setLoading} /></RequireAuth>} />
+              <Route path="eventForm" element={<RequireAuth loading={setLoading}><EventForm loading={setLoading} /></RequireAuth>} />
+              <Route path="eventForm/:id" element={<RequireAuth loading={setLoading}><EventForm loading={setLoading} /></RequireAuth>} />
+              <Route path="provider" element={<RequireAuth loading={setLoading}><Provider loading={setLoading} /></RequireAuth>} />
+              <Route path="events/:id/opinions" element={<RequireAuth loading={setLoading}><Opinions loading={setLoading} /></RequireAuth>} />
+              <Route path="events/:id/tourists" element={<RequireAuth loading={setLoading}><Tourists loading={setLoading} /></RequireAuth>} />
+              {/*
+                <Route path="/admin" element={<RequireAuth><AdminHome /></RequireAuth>} />
+                <Route path="providerForm" element={<RequireAuth><ProviderForm /></RequireAuth>} />
+                <Route path="categories" element={<RequireAuth><AdminCategories /></RequireAuth>} />
+                <Route path="categories/categoryForm" element={<RequireAuth><CategoryForm /></RequireAuth>} />
+                <Route path="admin/providerEvents/:id" element={<RequireAuth><ProviderEvents /></RequireAuth>} />
+              */}
+            </Routes>
+          </Container>
+        </AuthProvider>
+      </BrowserRouter>
+    </div>
   );
-};
+}
 export default App;

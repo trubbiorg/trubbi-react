@@ -4,26 +4,27 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import logo from '../resources/descarga.jfif';
+import { format, fromUnixTime } from 'date-fns';
 
 export default function Home(props) {
 
   return (
-    <Card key={props.number} sx={{ display: "flex", minWidth: 275 }}>
+    <Card sx={{ display: "flex", minWidth: 275 }}>
       <CardContent sx={{ paddingBottom: 0 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', mb: 3 }}>
           <img style={{ borderRadius: '16px' }} src={logo} alt="Logo" />
         </Box>
       </CardContent>
       <Box sx={{ display: 'flex', flexDirection: 'column', width: 700 }}>
         <CardContent sx={{ paddingBottom: 0 }}>
           <Typography variant="h5" component="div">
-              Titulo de la opinion
+              { props.opinion.title }
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+          <Typography sx={{ mb: 1.5, mt: 1.5 }} color="text.secondary">
+            { props.opinion.description }
           </Typography>
-          <Typography sx={{ mb: 1.5 }} style={{fontStyle: "italic"}} color="text.secondary">
-            <strong>Nombre del evento</strong>, 17/05/2020, Juan B Justo 2725
+          <Typography sx={{ mb: 1.5, mt: 1.5 }} style={{fontStyle: "italic"}} color="text.secondary">
+            <strong>{ props.opinion.touristEvent.event.title }</strong> {`${format(fromUnixTime(props.opinion.touristEvent.event.start_date), 'dd/MM/yyyy HH:mm')}`}
           </Typography>
         </CardContent>
       </Box>

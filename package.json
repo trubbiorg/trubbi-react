@@ -27,6 +27,7 @@
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
     "use-places-autocomplete": "^3.0.0",
+    "use-state-if-mounted": "^1.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -52,5 +53,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.30.0"
   }
 }

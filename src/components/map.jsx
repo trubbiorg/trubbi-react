@@ -5,17 +5,17 @@ import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption 
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import "@reach/combobox/styles.css"
 
-export default function Places() {
+export default function Places(props) {
     const { isLoaded } = useLoadScript({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyBruLlaLvMdXzNEjEBD5wHzqULq7Supv58",
         libraries: ['places']
     })
 
-    return isLoaded ? <Map /> : <div>Loading...</div>
+    return isLoaded ? <Map {...props} /> : <div>Loading...</div>
 }
 
-function Map() {
+function Map(props) {
     const containerStyle = {
         width: '100%',
         height: '400px'
@@ -26,11 +26,7 @@ function Map() {
         lng: -58.3821878
     };
 
-    const [map, setMap] = React.useState(null)
-
-    const [selected, setSelected] = React.useState(null)
-
-    const [address, setAddress] = React.useState(null)
+    const [map, setMap] = React.useState(null);
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);
@@ -46,7 +42,7 @@ function Map() {
     return (
         <>
             <Grid>
-                <PlacesAutocomplete setSelected={setSelected} map={map} setAdress={setAddress} />
+                <PlacesAutocomplete setSelected={props.handleAddress} map={map}  />
             </Grid>
             <GoogleMap
                 zoom={15}
@@ -54,13 +50,13 @@ function Map() {
                 onLoad={onLoad}
                 onUnmount={onUnmount}
             >
-                {selected && <Marker position={selected} />}
+                {props.eventRequest && props.eventRequest.latlng && <Marker position={props.eventRequest.latlng} />}
             </GoogleMap>
         </>
     )
 }
 
-const PlacesAutocomplete = ({ setSelected, map, setAddress }) => {
+const PlacesAutocomplete = ({ setSelected, map }) => {
     const {
         ready,
         value,
@@ -69,23 +65,22 @@ const PlacesAutocomplete = ({ setSelected, map, setAddress }) => {
         clearSuggestions
     } = usePlacesautocomplete()
 
-    const handleSelect = async (adrs) => {
-        setAddress(adrs)
-        setValue(adrs, false)
+    const handleSelect = async (address) => {
+        setValue(address, false)
         clearSuggestions()
 
-        const results = await getGeocode({ adrs })
+        const results = await getGeocode({ address  })
         const { lat, lng } = await getLatLng(results[0])
-        setSelected({ lat, lng })
-        map.setZoom(15)
+        setSelected(address, { lat, lng })
+        map.setZoom(18)
         map.panTo(new window.google.maps.LatLng({ lat, lng }))
     }
 
     return (
         <Grid>
-            <Combobox onSelect={handleSelect} fullwidth style={{ height: 75, float: 'left', width: '100%' }}>
+            <Combobox onSelect={handleSelect} style={{ height: 75, float: 'left', width: '100%' }}>
                 <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready}
-                    className="combobox-input" as={TextField} label="Direccion*" fullWidth />
+                    className="combobox-input" as={TextField} label="Direccion" required fullWidth />
                 <ComboboxPopover>
                     <ComboboxList style={{
                         color: "#454545",
