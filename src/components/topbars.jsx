@@ -3,9 +3,12 @@ import { AppBar, Toolbar, MenuItem, Menu, Button  } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../helpers/authProvider.js';
 
 export function TopBar(props) {
+  const auth = useContext(AuthContext)
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -16,11 +19,21 @@ export function TopBar(props) {
     setAnchorEl(null);
   };
 
+  let navigate = useNavigate();
+
+  const onLoggedOut = () => {
+    auth.signout(() => navigate('/'));
+  }
+
+  const goProvider = () => {
+    navigate('/provider');
+  };
+
   return (
     <AppBar sx={{ backgroundColor: '#3b58ed' }} >
       <Toolbar>
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          <Link to="/" style={{ fontWeight: 'bold', color: 'white', textDecoration: 'none' }}>
+          <Link to="/" style={{ textDecoration: 'none', fontWeight: 'bold', color: 'white' }}>
               Trubbi
           </Link>
         </Typography>
@@ -31,8 +44,8 @@ export function TopBar(props) {
           <AccountCircle />
         </IconButton>
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} >
-          <MenuItem onClick={handleClose}>Mi Perfil</MenuItem>
-          <MenuItem onClick={props.onLoggedOut}>Cerrar Sesion</MenuItem>
+          <MenuItem onClick={goProvider} >Mi Perfil</MenuItem>
+          <MenuItem onClick={onLoggedOut}>Cerrar Sesion</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
@@ -49,6 +62,7 @@ export function AdminTopBar(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  let navigate = useNavigate();
 
   return (
     <AppBar sx={{ backgroundColor: '#3b58ed' }} >
@@ -68,7 +82,7 @@ export function AdminTopBar(props) {
           <AccountCircle />
         </IconButton>
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} >
-          <MenuItem onClick={handleClose}>Mi Perfil</MenuItem>
+          <Link to={`provider`}><MenuItem>Mi Perfil</MenuItem></Link>
           <MenuItem onClick={props.onLoggedOut}>Cerrar Sesion</MenuItem>
         </Menu>
       </Toolbar>

@@ -1,14 +1,42 @@
-import React from 'react'
-import { Container, Box, TextField, Button, Link } from '@mui/material';
+import React, { useContext } from 'react'
+import { Container, Box, TextField, Button, Link, Alert, Snackbar } from '@mui/material';
 import logo from '../resources/logo.png';
+import { useNavigate } from 'react-router-dom';
+import { useStateIfMounted } from 'use-state-if-mounted';
+import { AuthContext } from '../helpers/authProvider.js';
 
 export default function Login(props) {
-  const handleSubmit = () => {
-    props.onLoggedIn(); 
-  };
+  let navigate = useNavigate();
+  const auth = useContext(AuthContext)
+
+  const [result, setResult] = useStateIfMounted();
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    let formData = new FormData(event.currentTarget);
+    let email = formData.get('email');
+    let password = formData.get('password');
+    props.loading(true);
+    const response = await auth.signin({email, password}, () => {
+      navigate('/');
+    });
+    props.loading(false);
+    console.log(response);
+    setResult(response);
+  }
+
+  const showError = () => {
+    return (typeof result === String) ? (result.toUpperCase() + result.slice(1)) : ((result[0]) ? result[0].toUpperCase() + result.slice(1) : '');
+  }
 
   return (
     <Container component="main" maxWidth="xs">
+      <Snackbar open={(result !== undefined)} autoHideDuration={6000}>
+        <Alert severity="error" variant="filled" sx={{ width: '100%' }}>
+          {(result) ? showError() : '' }
+        </Alert>
+      </Snackbar>
       <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <img width="200" height="100" src={logo} alt="Logo" />
         <Box component="form" onSubmit={handleSubmit}>
