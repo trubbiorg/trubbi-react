@@ -13,8 +13,15 @@ import Grid from "@mui/material/Grid";
 
 
 export default function ProviderCard(props){
+
+  const showAproveButton = () => {
+    return (
+      <Button variant="outlined" onClick={() => props.aprove(props.provider.id)} sx={{ float: "right" }} size="small">Aprobar</Button>
+    );
+  }
+
   return (
-    <Card number={props.provider} sx={{ maxWidth: 345 }}> 
+    <Card number={props.provider} sx={{ maxWidth: 345 }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
         {props.provider.name}
@@ -26,14 +33,12 @@ export default function ProviderCard(props){
       <CardActions>
         <Box>
           <Grid container justifyContent="right">
-            <Link to={`providerEvents/${props.provider.id}`} style={{ textDecoration: 'none' }}>
+            {/* <Link to={`providerEvents/${props.provider.id}`} style={{ textDecoration: 'none' }}>
               <Button variant="clear">Ver eventos</Button>
-            </Link>
-            <Link to={`/providerProfile/${props.provider.id}`}>
-              <Button variant="clear" style={{ textDecoration: 'none' }}>Ver más</Button>
-            </Link>
+            </Link> */}
+            {(props.provider.status === 'Esperando aprobacion') ? showAproveButton() : ''}
           </Grid>
-        </Box>      
+        </Box>
       </CardActions>
     </Card>
   );

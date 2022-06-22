@@ -18,8 +18,8 @@ export default function Login(props) {
     let email = formData.get('email');
     let password = formData.get('password');
     props.loading(true);
-    const response = await auth.signin({email, password}, () => {
-      navigate('/');
+    const response = await auth.signin({email, password, role: props.role}, () => {
+      (props.role === 'admins') ?  navigate('/admin') : navigate('/')
     });
     props.loading(false);
     console.log(response);

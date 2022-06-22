@@ -46,6 +46,11 @@ class genericDataService {
 		return apiClient.get(route);
 	}
 
+	patch(route) {
+		this.setToken();
+		return apiClient.patch(route);
+	}
+
 	setToken(){
 		apiClient.defaults.headers.common = {
 			"Authorization": `Bearer ${localStorage.getItem('token')}`,

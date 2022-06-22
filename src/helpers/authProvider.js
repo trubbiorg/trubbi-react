@@ -12,7 +12,6 @@ function AuthProvider({ children }) {
     let response = await fetchProviderToken(newUser).then(
       response => {
         let token = response.data.access_token;
-        // localStorage.setItem("token", token);
         setUser(token);
         return { token };
       }
@@ -54,7 +53,7 @@ function RequireAuth({ loading, children }) {
   const navigate = useNavigate();
 
   if (!auth.user) {
-    return <Login loading={loading} />
+    return <Login role={'providers'} loading={loading} />
   }
 
   return (<div><TopBar useAuth={useAuth} />{children}</div>);

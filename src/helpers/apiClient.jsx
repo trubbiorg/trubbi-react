@@ -4,7 +4,7 @@ const apiClient = axios.create({baseURL: "http://localhost:3060"});
 
 const fetchProviderToken = (credentials) => {
   apiClient.defaults.headers.common = { "Accept": `application/json`};
-  return apiClient.post("/providers/login", credentials);
+  return apiClient.post(`/${credentials.role}/login`, credentials);
 }
 
 const fetchAdminToken = (credentials) => {

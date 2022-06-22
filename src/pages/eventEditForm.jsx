@@ -11,18 +11,19 @@ import Map from '../components/map';
 import { render } from "react-dom";
 import { withScriptjs } from "react-google-maps";
 import genericDataService from '../helpers/genericDataService'
+import { useStateIfMounted } from "use-state-if-mounted";
 
 const eventsDataService = new genericDataService("/events");
 
 export default function EventForm() {
-  
+
   const navigate = useNavigate();
 
   const {id} = useParams();
 
-  const [eventsRequest, setEventsRequest] = useState({ 
-    // start: new Date('2014-08-18T21:11:54'), 
-    // end: new Date('2014-08-18T21:11:54'), 
+  const [eventsRequest, setEventsRequest] = useStateIfMounted({
+    // start: new Date('2014-08-18T21:11:54'),
+    // end: new Date('2014-08-18T21:11:54'),
     start_date: 123455678,
     end_date: 12344556,
     address: 'calle falsa 123',
@@ -62,12 +63,12 @@ export default function EventForm() {
 
   useEffect(()=> {
     eventsDataService.show(id,"/events").then(
-        response => setEventsRequest(response.data)      
+        response => setEventsRequest(response.data)
       ).catch(
         response=>console.log(response.data)
       )
   },[])
- 
+
 
   const MapLoader = withScriptjs(Map);
 
@@ -100,7 +101,7 @@ export default function EventForm() {
 
         <Grid item xs={12} md={4} >
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateTimePicker label="Inicio" eventsRequest={eventsRequest.start} onChange={handleStart} 
+            <DateTimePicker label="Inicio" eventsRequest={eventsRequest.start} onChange={handleStart}
               renderInput={(params) => <TextField  required fullWidth {...params}/>} />
           </LocalizationProvider >
         </Grid>
@@ -132,7 +133,7 @@ export default function EventForm() {
     </Paper>
   );
 
-  function randomNumber(min, max) { 
+  function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
-} 
+}
 }
