@@ -3,9 +3,10 @@ import { AppBar, Box, Toolbar, MenuItem, Menu } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useStateIfMounted } from 'use-state-if-mounted';
 
 const AppMenu = (props) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useStateIfMounted(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

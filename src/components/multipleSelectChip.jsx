@@ -8,6 +8,7 @@ import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { useEffect } from "react";
 import genericDataService from "../helpers/genericDataService";
+import { useStateIfMounted } from "use-state-if-mounted";
 
 const names = [
   "Oliver Hansen",
@@ -25,9 +26,7 @@ const eventsDataService = new genericDataService("/categories");
 
 export default function MultipleSelectChip(props) {
 
-  const [categories, setCategories] = React.useState([]);
-
-  // const [userCategories, setUserCategories] = React.useState([]);
+  const [categories, setCategories] = useStateIfMounted([]);
 
   useEffect(() => {
     props.loading(true);

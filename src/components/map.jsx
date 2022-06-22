@@ -4,6 +4,7 @@ import usePlacesautocomplete, { getGeocode, getLatLng } from "use-places-autocom
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox"
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import "@reach/combobox/styles.css"
+import { useStateIfMounted } from "use-state-if-mounted";
 
 export default function Places(props) {
     const { isLoaded } = useLoadScript({
@@ -26,7 +27,7 @@ function Map(props) {
         lng: -58.3821878
     };
 
-    const [map, setMap] = React.useState(null);
+    const [map, setMap] = useStateIfMounted(null);
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);

@@ -5,10 +5,11 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
 } from "react-places-autocomplete";
+import { useStateIfMounted } from "use-state-if-mounted";
 
 export default function GeoAutocomplete() {
-    const [address, setAddress] = React.useState("");
-    const [coordinates, setCoordinates] = React.useState({
+    const [address, setAddress] = useStateIfMounted("");
+    const [coordinates, setCoordinates] = useStateIfMounted({
         lat: null,
         lng: null
     });

@@ -6,10 +6,11 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../helpers/authProvider.js';
+import { useStateIfMounted } from 'use-state-if-mounted';
 
 export function TopBar(props) {
   const auth = useContext(AuthContext)
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useStateIfMounted(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,7 +54,7 @@ export function TopBar(props) {
 }
 
 export function AdminTopBar(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useStateIfMounted(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -72,17 +73,13 @@ export function AdminTopBar(props) {
               Trubbi
           </Link>
         </Typography>
-          <Link to="categories" style={{ color: 'white', textDecoration: 'none' }}>
-          <Button sx={{ flexGrow: 1 }}variant="clear">Categorías</Button>
-          </Link>
-        <Link to="providerForm" style={{ textDecoration: 'none' }}>
+        <Link to="/providerForm" style={{ textDecoration: 'none' }}>
           <Button variant="contained" sx={{ marginRight: 2 }}>Agregar Proveedor</Button>
         </Link>
         <IconButton onClick={handleMenu} color="inherit">
           <AccountCircle />
         </IconButton>
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} >
-          <Link to={`provider`}><MenuItem>Mi Perfil</MenuItem></Link>
           <MenuItem onClick={props.onLoggedOut}>Cerrar Sesion</MenuItem>
         </Menu>
       </Toolbar>

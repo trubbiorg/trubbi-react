@@ -10,12 +10,13 @@ import TrubbiCard from '../components/trubbicard'
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Stack } from '@mui/material';
+import { useStateIfMounted } from 'use-state-if-mounted';
 
 const providerEventsDataService = new genericDataService("/providers");
 
 export default function ProviderEvents(props) {
 
-    const [thisProviderEvents,setEvents] = useState([])
+    const [thisProviderEvents,setEvents] = useStateIfMounted([])
     let {id} = useParams();
     useEffect(()=> {
         providerEventsDataService.lookup(`providers/${id}/events`).then(
@@ -24,7 +25,7 @@ export default function ProviderEvents(props) {
       },[])
 
       return (
-        <Box sx={{ flexGrow: 1 }}>           
+        <Box sx={{ flexGrow: 1 }}>
             {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
                 {thisProviderEvents.map((events) => (
             <Grid item xs={2} sm={4} md={4} key={events}>
